@@ -19,6 +19,7 @@ sprites.onOverlap(SpriteKind.Football, SpriteKind.Goal, function (sprite, otherS
 })
 let mySprite2: Sprite = null
 let myDart: Dart = null
+let question = game.askForString("")
 myDart = darts.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
