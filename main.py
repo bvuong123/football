@@ -1,27 +1,31 @@
-namespace SpriteKind {
-    export const Football = SpriteKind.create()
-    export const Goal = SpriteKind.create()
-    export const Obstacle = SpriteKind.create()
-}
+@namespace
+class SpriteKind:
+    Football = SpriteKind.create()
+    Goal = SpriteKind.create()
+    Obstacle = SpriteKind.create()
 
-controller.B.onEvent(ControllerButtonEvent.Pressed, function on_b_pressed() {
-    myDart.stopDart()
-})
-controller.A.onEvent(ControllerButtonEvent.Pressed, function on_a_pressed() {
-    myDart.throwDart()
-})
-sprites.onOverlap(SpriteKind.Football, SpriteKind.Obstacle, function on_on_overlap(sprite: Sprite, otherSprite: Sprite) {
+def on_b_pressed():
+    myDart.stop_dart()
+controller.B.on_event(ControllerButtonEvent.PRESSED, on_b_pressed)
+
+def on_a_pressed():
+    myDart.throw_dart()
+controller.A.on_event(ControllerButtonEvent.PRESSED, on_a_pressed)
+
+def on_on_overlap(sprite, otherSprite):
     game.splash("It was an interception")
-    game.gameOver(false)
-})
-sprites.onOverlap(SpriteKind.Football, SpriteKind.Goal, function on_on_overlap2(sprite2: Sprite, otherSprite2: Sprite) {
+    game.game_over(False)
+sprites.on_overlap(SpriteKind.Football, SpriteKind.Obstacle, on_on_overlap)
+
+def on_on_overlap2(sprite2, otherSprite2):
     game.splash("Goal!!")
-    game.gameOver(true)
-})
-let mySprite2 : Sprite = null
-let myDart : Dart = null
-let question = game.askForString("")
-myDart = darts.create(img`
+    game.game_over(True)
+sprites.on_overlap(SpriteKind.Football, SpriteKind.Goal, on_on_overlap2)
+
+mySprite2: Sprite = None
+myDart: Dart = None
+question = game.ask_for_string("")
+myDart = darts.create(img("""
         . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
@@ -38,10 +42,11 @@ myDart = darts.create(img`
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . .
-    `, SpriteKind.Football)
-myDart.setTrace()
-myDart.controlWithArrowKeys()
-let mySprite = sprites.create(img`
+    """),
+    SpriteKind.Football)
+myDart.set_trace()
+myDart.control_with_arrow_keys()
+mySprite = sprites.create(img("""
         .............cc.
             ............cbbc
             ............cbbc
@@ -106,9 +111,10 @@ let mySprite = sprites.create(img`
             .........6bbbbb6
             ..........6bbb6.
             ...........666..
-    `, SpriteKind.Goal)
-mySprite.setPosition(150, 95)
-scene.setBackgroundImage(img`
+    """),
+    SpriteKind.Goal)
+mySprite.set_position(150, 95)
+scene.set_background_image(img("""
     9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999995555555555555555555555555555
         9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999995555555555555555555555555555
         9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999995555555555555555555555555555
@@ -229,9 +235,9 @@ scene.setBackgroundImage(img`
         7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
         7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
         7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
-`)
-for (let index = 0; index < 3; index++) {
-    mySprite2 = sprites.create(img`
+"""))
+for index in range(3):
+    mySprite2 = sprites.create(img("""
             . . . . . . . . . . . . . . . . 
                     . . . . . . . . . . . . . . . . 
                     . . . . . 2 2 2 2 . . . . . . . 
@@ -248,6 +254,6 @@ for (let index = 0; index < 3; index++) {
                     . . . . . . 2 . . 2 . . . . . . 
                     . . . . . 2 2 . 2 2 . . . . . . 
                     . . . . . f f . f f . . . . . .
-        `, SpriteKind.Obstacle)
-    mySprite2.setPosition(randint(0, 110), randint(20, 90))
-}
+        """),
+        SpriteKind.Obstacle)
+    mySprite2.set_position(randint(0, 110), randint(20, 90))
